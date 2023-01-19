@@ -56,3 +56,7 @@ form .records input {
 .rec {
     display: flex;
 }
+
+.dropdown-toggle{
+    margin:10px;
+}
