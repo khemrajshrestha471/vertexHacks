@@ -43,18 +43,21 @@ if (!$conn){
 if(isset($_GET['delete'])){
   $sno = $_GET['delete'];
   $delete = true;
-  $sql = "DELETE FROM `ptps_data` WHERE `sno` = $sno";
+  $sql = "DELETE FROM `ptps_data` WHERE `s.n` = $sno";
   $result = mysqli_query($conn, $sql);
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 if (isset( $_POST['snoEdit'])){
   // Update the record
-    $sno = $_POST["snoEdit"];
-    $title = $_POST["titleEdit"];
-    $description = $_POST["descriptionEdit"];
-
+  $sno = $_POST["snoEdit"];
+  $team_name=$_POST['team_nameE'];
+  $material = $_POST['materialE'];
+  $unique_id = $_POST['unique_idE'];
+  $initial_condn = $_POST['initial_condnE'];
+  $final_condn = $_POST['final_condnE'];
+  $updated_at = date("Y-m-d H:i:s");
   // Sql query to be executed
-  $sql = "UPDATE `notes` SET `title` = '$title' , `description` = '$description' WHERE `notes`.`sno` = $sno";
+  $sql = "UPDATE `ptps_data` SET `team_name` = '$team_name' , `material` = '$material',`unique_id`='$unique_id',`initial_condn`='$initial_condn',`final_condn`='$final_condn',`updated_at`='$updated_at' WHERE `ptps_data`.`s.n` = $sno";
   $result = mysqli_query($conn, $sql);
   if($result){
     $update = true;
@@ -134,8 +137,8 @@ else{
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-  <form>
-
+  <form action="/vertexHacks/index.php" method="POST">
+  <input type="hidden" name="snoEdit" id="snoEdit">
 <!-- team1 -->
 <input type="text" placeholder="Team name" id="team_nameE" name="team_nameE"> <br> <br>
   <div class="record">
@@ -143,7 +146,7 @@ else{
     <input type="text" placeholder="Unique identity" id="unique_idE" name="unique_idE"> &nbsp;
     <input type="text" placeholder="Initial Condition" id="initial_condnE" name="initial_condnE"> &nbsp;
     <input type="text" placeholder="Final Condition" id="final_condnE" name="final_condnE"> &nbsp;
-    <button type="submit" class="btn btn-success">Submit</button>
+    <button type="submit" class="btn btn-success">Update</button>
   </div>
   <br>
 </form>
@@ -174,20 +177,16 @@ else{
     <?php
   if($delete){
     echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-    <strong>Success!</strong> Your record has been deleted successfully
-    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-      <span aria-hidden='true'>×</span>
-    </button>
+    <strong>Deletion Success!</strong> Your record has been deleted successfully.
+    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
   </div>";
   }
   ?>
   <?php
   if($update){
     echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-    <strong>Success!</strong> Your record has been updated successfully
-    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-      <span aria-hidden='true'>×</span>
-    </button>
+    <strong>Update Success!</strong> Your record has been updated successfully.
+    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
   </div>";
   }
   ?>
@@ -264,7 +263,26 @@ else{
         unique_idE.value = uid;
         initial_condnE.value = ic;
         final_condnE.value = fc;
+        // get serial number from the button
+        snoEdit.value = e.target.id;
         $('#editModal').modal('toggle');
+      })
+    })
+
+
+    deletes = document.getElementsByClassName('delete');
+    Array.from(deletes).forEach((element)=>{
+      element.addEventListener("click",(e)=>{
+        sno = e.target.id.substr(1);
+        console.log(sno);
+        if (confirm("Are you sure you want to delete this note!")) {
+          console.log("yes");
+          window.location = `/vertexHacks/index.php?delete=${sno}`;
+          // TODO: Create a form and use post request to submit a form
+        }
+        else {
+          console.log("no");
+        }
       })
     })
   </script>
