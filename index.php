@@ -137,19 +137,18 @@ else{
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-  <form action="/vertexHacks/index.php" method="POST">
-  <input type="hidden" name="snoEdit" id="snoEdit">
-<!-- team1 -->
-<input type="text" placeholder="Team name" id="team_nameE" name="team_nameE"> <br> <br>
-  <div class="record">
-    <input type="text" placeholder="Material" id="materialE" name="materialE">
-    <input type="text" placeholder="Unique identity" id="unique_idE" name="unique_idE"> &nbsp;
-    <input type="text" placeholder="Initial Condition" id="initial_condnE" name="initial_condnE"> &nbsp;
-    <input type="text" placeholder="Final Condition" id="final_condnE" name="final_condnE"> &nbsp;
-    <button type="submit" class="btn btn-success">Update</button>
-  </div>
-  <br>
-</form>
+                <form action="/vertexHacks/index.php" method="POST">
+                <input type="hidden" name="snoEdit" id="snoEdit">
+              <input type="text" placeholder="Team name" id="team_nameE" name="team_nameE"> <br> <br>
+                <div class="record">
+                  <input type="text" placeholder="Material" id="materialE" name="materialE">
+                  <input type="text" placeholder="Unique identity" id="unique_idE" name="unique_idE"> &nbsp;
+                  <input type="text" placeholder="Initial Condition" id="initial_condnE" name="initial_condnE"> &nbsp;
+                  <input type="text" placeholder="Final Condition" id="final_condnE" name="final_condnE"> &nbsp;
+                  <button type="submit" class="btn btn-success">Update</button>
+                </div>
+                <br>
+              </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
