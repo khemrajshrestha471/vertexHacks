@@ -49,14 +49,13 @@ form .records input {
 }
 
 /* initially the option for data entry should be hidden */
-.records {
-    display: none;
-}
-
-.rec {
+.record{
     display: flex;
 }
-
 .dropdown-toggle{
     margin:10px;
+}
+
+.table-data{
+    margin-top: auto;
 }
