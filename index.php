@@ -1,44 +1,8 @@
-<?php
-// $insertion = false;
-// $conn =new mysqli("localhost","root","","vertex_hacks");
-// if ($conn->connect_error) {
-//     die("Connection failed: " . $conn->connect_error);
-// }
-// if($_SERVER['REQUEST_METHOD']=="POST" && isset($_GET['submit'])){
-//     $team_name=$_POST['team_name'];
-//     $material = $_POST['material'];
-//     $unique_id = $_POST['unique_id'];
-//     $initial_condn = $_POST['initial_condn'];
-//     $final_condn = $_POST['final_condn'];
-//     $updated_at = date("Y-m-d H:i:s");
-//     $query = "INSERT INTO ptps_data ( team_name, material, unique_id, initial_condn, final_condn, updated_at) VALUES ('$team_name', '$material', '$unique_id', '$initial_condn', '$final_condn', '$updated_at')";
-//     $result = mysqli_query($conn,$query);
-//     if($result){
-//         $insertion = true;
-//     } else {
-//         echo "Something went wrong";
-//     }
-
-// }
-?>
-<?php  
-// INSERT INTO `notes` (`sno`, `title`, `description`, `tstamp`) VALUES (NULL, 'But Books', 'Please buy books from Store', current_timestamp());
+<?php 
+include "connection.php"; 
 $insert = false;
 $update = false;
 $delete = false;
-// Connect to the Database 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "vertex_hacks";
-
-// Create a connection
-$conn = mysqli_connect($servername, $username, $password, $database);
-
-// Die if connection was not successful
-if (!$conn){
-    die("Sorry we failed to connect: ". mysqli_connect_error());
-}
 
 if(isset($_GET['delete'])){
   $sno = $_GET['delete'];
@@ -91,10 +55,11 @@ else{
 
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Vertex Hacks</title>
+  <title>Records Vertex Hacks</title>
   <!-- linking to the css -->
   <link rel="stylesheet" href="style.css">
   <!-- bootstrap link -->
@@ -105,59 +70,50 @@ else{
   <!-- favicon -->
   <link rel="shortcut icon" href="images/fav.jpg">
 
-  <script
-  src="https://code.jquery.com/jquery-3.6.3.js"
-  integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
-  crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+    crossorigin="anonymous"></script>
   <link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
 
   <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-  
-<script>$(document).ready( function () {
-    $('#myTable').DataTable();
-  } );</script>
-  
+
+  <script>$(document).ready(function () {
+      $('#myTable').DataTable();
+    });</script>
+
 </head>
 
 
-<body>
-
-  <!-- Modal Here -->
-  <!-- Edit trigger modal -->
-    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
-      Edit Modal
-    </button> -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="editModalLabel">Edit Record</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
+<body style="background-color:#018a8a;">
+<!-- Modal Here -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editModalLabel">Edit Record</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/vertexHacks/index.php" method="POST">
           <div class="modal-body">
-                <form action="/vertexHacks/index.php" method="POST">
-                <input type="hidden" name="snoEdit" id="snoEdit">
-              <input type="text" placeholder="Team name" id="team_nameE" name="team_nameE"> <br> <br>
-                <div class="record">
-                  <input type="text" placeholder="Material" id="materialE" name="materialE">
-                  <input type="text" placeholder="Unique identity" id="unique_idE" name="unique_idE"> &nbsp;
-                  <input type="text" placeholder="Initial Condition" id="initial_condnE" name="initial_condnE"> &nbsp;
-                  <input type="text" placeholder="Final Condition" id="final_condnE" name="final_condnE"> &nbsp;
-                  <button type="submit" class="btn btn-success">Update</button>
-                </div>
-                <br>
-              </form>
+            <div class="record-m">
+              <input type="hidden" name="snoEdit" id="snoEdit">
+              Team Name:<input type="text" placeholder="Team name" id="team_nameE" name="team_nameE">
+              Material Name:<input type="text" placeholder="Material" id="materialE" name="materialE">
+              Material UID:<input type="text" placeholder="Unique identity" id="unique_idE" name="unique_idE">
+              Initial Condition:<input type="text" placeholder="Initial Condition" id="initial_condnE" name="initial_condnE">
+              Final Condition:<input type="text" placeholder="Final Condition" id="final_condnE" name="final_condnE">
+              <!-- <button type="submit" class="btn btn-success">Update</button> -->
+            </div>
+            <br>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-success">Update</button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
-
+  </div>
+<!-- Modal ends Here -->
 
 
 
@@ -165,7 +121,9 @@ else{
 
   <div class="container mt-4">
     <h3>Records of miscellaneous activites in Vertex hacks</h3>
-    <?php 
+    <div class="alert-area">
+      <!-- Alerts Here -->
+      <?php 
     if($insert){
       echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
       <strong>Insertion Success!</strong> Your record has been inserted successfully.
@@ -173,7 +131,7 @@ else{
     </div>";
     }
     ?>
-    <?php
+      <?php
   if($delete){
     echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
     <strong>Deletion Success!</strong> Your record has been deleted successfully.
@@ -181,7 +139,7 @@ else{
   </div>";
   }
   ?>
-  <?php
+      <?php
   if($update){
     echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
     <strong>Update Success!</strong> Your record has been updated successfully.
@@ -189,42 +147,41 @@ else{
   </div>";
   }
   ?>
-    <!-- forms for submit the data -->
-    <form action="/vertexHacks/index.php" method="POST">
+  <!-- Alert Ends Here -->
+    </div>
+  </div>
 
-      <!-- team1 -->
+  <!-- forms for submit the data -->
+  <div class="container">
+    <form action="/vertexHacks/index.php" method="POST">
       <input type="text" placeholder="Team name" name="team_name"> <br> <br>
-        <div class="record">
-          <input type="text" placeholder="Material" name="material">
-          <input type="text" placeholder="Unique identity" name="unique_id"> &nbsp;
-          <input type="text" placeholder="Initial Condition" name="initial_condn"> &nbsp;
-          <input type="text" placeholder="Final Condition" name="final_condn"> &nbsp;
-          <button type="submit" class="btn btn-success">Submit</button>
-        </div>
-        <br>
-      </form>
+      <div class="record">
+        <input type="text" placeholder="Material" name="material">
+        <input type="text" placeholder="Unique identity" name="unique_id"> &nbsp;
+        <input type="text" placeholder="Initial Condition" name="initial_condn"> &nbsp;
+        <input type="text" placeholder="Final Condition" name="final_condn"> &nbsp;
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
   </div>
   <div class="container">
 
 
-<table class="table table-data" id="myTable">
-  <thead>
-    <tr>
-      <th scope="col">S.N</th>
-      <th scope="col">Team Name</th>
-      <th scope="col">Material Name</th>
-      <th scope="col">Material UID</th>
-      <th scope="col">Initial Condition</th>
-      <th scope="col">Final Condition</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-  <?php
-    $conn =new mysqli("localhost","root","","vertex_hacks");
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    <table class="table table-data" style="background-color:#efefef;" id="myTable">
+      <thead>
+        <tr>
+          <th scope="col">S.N</th>
+          <th scope="col">Team Name</th>
+          <th scope="col">Material Name</th>
+          <th scope="col">Material UID</th>
+          <th scope="col">Initial Condition</th>
+          <th scope="col">Final Condition</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        include "connection.php";
     $sql = "SELECT * FROM `ptps_data`";
     $sno = 0;
     $result = mysqli_query($conn,$sql);
@@ -241,16 +198,16 @@ else{
     </tr>";
     }
     ?>
-    
-  </tbody>
-</table>
+
+      </tbody>
+    </table>
   </div>
 
   <!-- this is the logic part -->
   <script>
     edits = document.getElementsByClassName('edit');
-    Array.from(edits).forEach((element)=>{
-      element.addEventListener("click",(e)=>{
+    Array.from(edits).forEach((element) => {
+      element.addEventListener("click", (e) => {
         tr = e.target.parentNode.parentNode;
         team = tr.getElementsByTagName("td")[0].innerText;
         material = tr.getElementsByTagName("td")[1].innerText;
@@ -270,8 +227,8 @@ else{
 
 
     deletes = document.getElementsByClassName('delete');
-    Array.from(deletes).forEach((element)=>{
-      element.addEventListener("click",(e)=>{
+    Array.from(deletes).forEach((element) => {
+      element.addEventListener("click", (e) => {
         sno = e.target.id.substr(1);
         console.log(sno);
         if (confirm("Are you sure you want to delete this note!")) {
@@ -288,14 +245,13 @@ else{
   <!-- <script src="script.js"></script> -->
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-      crossorigin="anonymous"></script>
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
 </body>
+
 </html>
 
 
 
 
 <!-- INSERT INTO `orgs` (`s.n`, `material`, `num_material`) VALUES ('1', 'Sleeping Bags', '50'); -->
-
-
