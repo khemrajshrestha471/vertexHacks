@@ -59,3 +59,16 @@ form .records input {
 .table-data{
     margin-top: auto;
 }
+
+.whole {
+    background: rgb(222, 222, 223);
+    padding: 10px;
+    margin-bottom: 5em;
+}
+
+.container h2 {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    color: #018a8a;
+    font-weight: bold;
+}
