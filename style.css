@@ -1,11 +1,14 @@
 body h3 {
     background: rgb(222, 222, 223);
     padding: 10px;
-    margin-bottom: 5em;
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
     color: #018a8a;
     font-weight: bold;
+}
+
+.alert-area{
+    height: 80px;
 }
 
 form input {
@@ -14,4 +17,10 @@ form input {
     padding: 10px 10px;
     font-size: 20px;
     border-radius: 6px;
+}
+
+.record-m>input{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
 }

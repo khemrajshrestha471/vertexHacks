@@ -5,7 +5,7 @@
 $server = "localhost";
 $username = "root";
 $password = "";
-$database = "vertexhacks";
+$database = "vertex_hacks";
 
 // query for making connection to the database
 
